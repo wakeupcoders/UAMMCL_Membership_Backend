@@ -21,77 +21,60 @@ router.post("/", async (req, res, next) => {
 
 
 // //UPDATE
-// router.put("/:id", async (req, res) => {
-//   try {
-//     const updatedProduct = await Product.findByIdAndUpdate(
-//       req.params.id, {
-//       $set: req.body,
-//     }, { new: true }
-//     );
-//     res.status(200).json(updatedProduct);
-//   } catch (err) {
-//     res.status(500).json(err);
-//   }
-// });
+router.put("/:id", async (req, res) => {
+  try {
+    const updatedOrdinary = await Ordinary.findByIdAndUpdate(
+      req.params.id, {
+      $set: req.body,
+    }, { new: true }
+    );
+    return res.status(200).json(updatedOrdinary);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
 
-// //DELETE
-// router.delete("/:id", async (req, res) => {
-//   try {
-//     if (req.params.id === "bulkdelete") {
-//       await Product.deleteMany({ _id: { $in: req.body.pids } });
-//       return res.status(200).json("Products has been deleted...");
-//     }
-//     await Product.findByIdAndDelete(req.params.id);
-//     return res.status(200).json("Product has been deleted...");
-//   } catch (err) {
-//     res.status(500).json(err);
-//   }
-// });
+//DELETE
+router.delete("/:id", async (req, res) => {
+  try {
+    await Ordinary.findByIdAndDelete(req.params.id);
+    return res.status(200).json({"Message":"Ordinary has been deleted !!"});
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
 
-// //GET PRODUCT
-// router.get("/find/:id", async (req, res) => {
-//   try {
-//     const product = await Product.findById(req.params.id);
-//     res.status(200).json(product);
-//   } catch (err) {
-//     res.status(500).json(err);
-//   }
-// });
+//DELETE All
+router.delete("/clean", async (req, res) => {
+  try {
+    await Ordinary.delete();
+    return res.status(200).json({"Message":"All Ordinary has been deleted !!"});
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+//GET Find Ordinary
+router.get("/:id", async (req, res) => {
+  try {
+    const ordinary = await Ordinary.findById(req.params.id);
+    res.status(200).json(ordinary);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
 
 
-// //GET ALL PRODUCTS
-// router.get("/", async (req, res) => {
-//   const qNew = req.query.new;
-//   const qCategory = req.query.category;
-//   const { page, perpage } = req.query;
-//   const options = {
-//     page: parseInt(page, 10),
-//     limit: parseInt(perpage, 10),
-//   };
-//   try {
-//     let products, featuredproducts, trendingproducts;
-
-//     if (qNew) {
-//       products = await Product.find().sort({ createdAt: -1 }).limit(1);
-//     } else if (qCategory) {
-//       products = await Product.find({
-//         categories: {
-//           $in: [qCategory],
-//         },
-//       });
-//     } else {
-//       products = await Product.paginate({}, options);
-//       featuredproducts = await Product.find({ inFeatured: true }).sort({ createdAt: -1 });
-//       trendingproducts = await Product.find({ inTrending: true }).sort({ createdAt: -1 });
-//     }
-
-//     products.featuredProducts = featuredproducts;
-//     products.trendingproducts = trendingproducts;
-//     res.status(200).json(products);
-//   } catch (err) {
-//     res.status(500).json(err);
-//   }
-// });
+//GET Ordinary
+router.get("/", async (req, res) => {
+ 
+  try {
+     ordinaries = await Ordinary.find().sort({ createdAt: -1 });
+     return res.status(200).json(ordinaries);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
 
 
 
