@@ -84,8 +84,8 @@ router.get("/downloadOM", async (req, res) => {
     ordinaries.forEach(ordinary => {
       worksheet.addRow({
         _id: ordinary._id,
-        name: ordinary.name,
-        description: ordinary.description,
+        name: ordinary.nameOfApplicant,
+        resident: ordinary.residentOf,
         createdAt: ordinary.createdAt,
         updatedAt: ordinary.updatedAt,
       });
