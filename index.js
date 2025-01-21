@@ -5,6 +5,8 @@ var path=require('path');
 const dotenv = require("dotenv");
 dotenv.config();
 const ordinaryRoute = require("./routes/ordinary");
+const reportRoute = require("./routes/report");
+
 
 const Sentry = require("@sentry/node");
 
@@ -30,6 +32,15 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 app.use("/api/OM", ordinaryRoute);
+app.use("/api/reports", reportRoute);
+
+// Catch-All Route for Unmatched Endpoints
+app.use((req, res, next) => {
+    res.status(200).json({
+      error: "Route not found",
+      message: `The endpoint ${req.originalUrl} does not exist, Please connect with wakeupcoders.com/contact for more information.`,
+    });
+  });
 
 // app.use(express.static('dist'));
 app.use(errorHandler);
