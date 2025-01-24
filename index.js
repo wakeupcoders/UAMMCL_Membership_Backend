@@ -34,21 +34,23 @@ app.use(express.urlencoded({ extended: false }));
 app.use("/api/OM", ordinaryRoute);
 app.use("/api/reports", reportRoute);
 
-// Catch-All Route for Unmatched Endpoints
-app.use((req, res, next) => {
-    res.status(200).json({
-      error: "Route not found",
-      message: `The endpoint ${req.originalUrl} does not exist, Please connect with wakeupcoders.com/contact for more information.`,
-    });
-  });
 
 // app.use(express.static('dist'));
 app.use(errorHandler);
 
-// app.use(express.static(path.join(__dirname,'dist')));
-// app.use("/*", function(req, res){
-//     res.sendFile(path.join(__dirname+'/dist/index.html'))
-// })
+app.use(express.static(path.join(__dirname,'dist')));
+app.use("/*", function(req, res){
+    res.sendFile(path.join(__dirname+'/dist/index.html'))
+})
+
+// Catch-All Route for Unmatched Endpoints
+app.use((req, res, next) => {
+  res.status(200).json({
+    error: "Route not found",
+    message: `The endpoint ${req.originalUrl} does not exist, Please connect with wakeupcoders.com/contact for more information.`,
+  });
+});
+
 
 const server = app.listen(process.env.PORT || 5000, () => {
     console.log("Backend server is running!");
