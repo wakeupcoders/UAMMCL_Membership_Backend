@@ -9,34 +9,28 @@ const router = require("express").Router();
 
 
 //DOWNLOAD EXCEL - Export all ordinaries to Excel
-router.get("/downloadOM", async (req, res) => {
+router.get("/downloadOM/:memberid", async (req, res) => {
   try {
-    const ordinaries = await Ordinary.find().sort({ createdAt: -1 });
+    // const ordinaries = await Ordinary.find().sort({ createdAt: -1 });
+    // Check if a specific member ID is provided
+     const memberId = req.params.memberid;
+
+     let ordinaries;
+     
+     if (memberId!="all") {
+       // If memberId is provided, filter the records by memberId
+       ordinaries = await Ordinary.find({ membership_id: memberId }).sort({ createdAt: -1 });
+     } 
+     
+     if(memberId=="all"){
+       // If no memberId is provided, fetch all records
+       ordinaries = await Ordinary.find().sort({ createdAt: -1 });
+     }
+
 
     // Create a new Excel workbook and worksheet
     const workbook = new ExcelJS.Workbook();
     const worksheet = workbook.addWorksheet("Ordinaries");
-
-    // // Define columns for Excel file
-    // worksheet.columns = [
-    //   { header: "ID", key: "_id", width: 30 },
-    //   { header: "Name", key: "name", width: 20 },
-    //   { header: "Resident", key: "resident", width: 30 },
-    //   { header: "Created At", key: "createdAt", width: 20 },
-    //   { header: "Updated At", key: "updatedAt", width: 20 },
-    // ];
-
-    // // Add data rows for each ordinary record
-    // ordinaries.forEach(ordinary => {
-    //   worksheet.addRow({
-    //     _id: ordinary._id,
-    //     name: ordinary.nameOfApplicant,
-    //     resident: ordinary.residentOf,
-    //     createdAt: ordinary.createdAt,
-    //     updatedAt: ordinary.updatedAt,
-    //   });
-    // });
-
 
     worksheet.columns = [
       { header: "Register Number", key: "register_number", width: 20 },
