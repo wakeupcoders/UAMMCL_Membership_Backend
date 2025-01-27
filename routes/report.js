@@ -58,7 +58,7 @@ router.get("/downloadOM", async (req, res) => {
     ordinaries.forEach((ordinary) => {
       const totalValueOfShares = ordinary.shares * (Number(process.env.SHARE_EACH_VALUE) || 100);
 
-      const date = ordinary.applicationReceivedOn ? new Date(ordinary.applicationReceivedOn) : null;
+      const date = ordinary.createdAt ? new Date(ordinary.createdAt) : null;
     
       worksheet.addRow({
         register_number: ordinary.certificateDetails?.register_number || "N/A",
