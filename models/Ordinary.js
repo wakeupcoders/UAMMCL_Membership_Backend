@@ -42,8 +42,8 @@ const OrdinaryMemberSchema = new mongoose.Schema(
     panCard: { type: String, required: false },
     nomination: NominationSchema, // Embedded nomination details
     certificateDetails: CertificateDetailsSchema, // Embedded certificate details
-    applicationReceivedOn: { type: Date, default: Date.now },
-    receiptNumber: { type: Number, required: true },
+    // applicationReceivedOn: { type: Date, default: Date.now },
+    receiptNumber: { type: String, required: true },
   },
   { timestamps: true }
 );
