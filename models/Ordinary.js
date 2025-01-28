@@ -13,8 +13,8 @@ const CertificateDetailsSchema = new mongoose.Schema({
   register_number: { type: String, required: true },
   certificate_number: { type: String, required: true },
   Holding_Iden_number: { type: String, required: true },
-  share_start_number: { type: Number, required: true },
-  share_end_number: { type: Number, required: true },
+  share_start_number: { type: String, required: true },
+  share_end_number: { type: String, required: true },
   value_of_share: { type: Number, required: true, default: 100 }
 });
 
