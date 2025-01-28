@@ -6,6 +6,7 @@ const dotenv = require("dotenv");
 dotenv.config();
 const ordinaryRoute = require("./routes/ordinary");
 const reportRoute = require("./routes/report");
+const uploaderRoute = require("./routes/fileuploader");
 
 
 const Sentry = require("@sentry/node");
@@ -25,7 +26,7 @@ mongoose
         console.log(err);
     });
 
-app.use("/images", express.static('uploads'));
+app.use("/uploads", express.static('uploads'));
 
 app.use(cors());
 app.use(express.json());
@@ -33,6 +34,7 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use("/api/OM", ordinaryRoute);
 app.use("/api/reports", reportRoute);
+app.use("/api/uploads", uploaderRoute);
 
 
 // app.use(express.static('dist'));

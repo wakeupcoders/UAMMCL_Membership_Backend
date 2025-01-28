@@ -44,6 +44,7 @@ const OrdinaryMemberSchema = new mongoose.Schema(
     certificateDetails: CertificateDetailsSchema, // Embedded certificate details
     // applicationReceivedOn: { type: Date, default: Date.now },
     receiptNumber: { type: String, required: true },
+    attachments: [{ type: String }] // Array of strings for file names or file paths
   },
   { timestamps: true }
 );
