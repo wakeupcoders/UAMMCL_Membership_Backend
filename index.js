@@ -8,6 +8,8 @@ const ordinaryRoute = require("./routes/ordinary");
 const reportRoute = require("./routes/report");
 const uploaderRoute = require("./routes/fileuploader");
 
+const authRoutes = require("./routes/auth");
+
 
 const Sentry = require("@sentry/node");
 
@@ -35,6 +37,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use("/api/OM", ordinaryRoute);
 app.use("/api/reports", reportRoute);
 app.use("/api/uploads", uploaderRoute);
+app.use("/api/auth", authRoutes);
 
 
 // app.use(express.static('dist'));
