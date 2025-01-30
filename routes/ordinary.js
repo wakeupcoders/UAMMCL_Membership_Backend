@@ -22,6 +22,7 @@ router.post("/", async (req, res, next) => {
     req.body.certificateDetails.certificate_number = GeneratedRecord.certificateNumber;
     req.body.certificateDetails.share_start_number = GeneratedRecord.shareStartValue;
     req.body.certificateDetails.share_end_number = GeneratedRecord.shareEndValue;
+    req.body.certificateDetails.Holding_Iden_number = GeneratedRecord.holdingIdenNumber;
 
     const savedOrdinary = await new Ordinary(req.body).save();
     return res.status(200).json(savedOrdinary);

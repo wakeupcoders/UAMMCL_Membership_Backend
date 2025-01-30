@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const ShareLastValueSchema = new mongoose.Schema({
     shareStartValue: { type: String, required: true, default: '000000' }, // Last share value as a string
     shareEndValue: { type: String, required: true, default: '000000' }, // Last share value as a string
+    holdingIdenNumber: { type: String, required: true, default: '000000' }, // Last share value as a string
     registrationNumber: { type: String, required: true, default: '000000' }, // Last registration number as a string
     certificateNumber: { type: String, required: true, default: '000000' }, // Last certificate number as a string
 });
@@ -29,12 +30,14 @@ ShareLastValueSchema.statics.updateValues = async function (numberOfShares) {
             shareValue: '000000',
             registrationNumber: '000000',
             certificateNumber: '000000',
+            holdingIdenNumber: '000000',
         });
     }
 
     // Increment the values
     record.shareStartValue = addToStringNumber(record.shareEndValue, 1, 5);
     record.shareEndValue = addToStringNumber(record.shareEndValue, numberOfShares, 5); // Increment share value by the number of shares
+    record.holdingIdenNumber = incrementStringNumber(record.holdingIdenNumber, 5); // Increment registration number with leading zeros
     record.registrationNumber = incrementStringNumber(record.registrationNumber, 5); // Increment registration number with leading zeros
     record.certificateNumber = incrementStringNumber(record.certificateNumber, 5); // Increment certificate number with leading zeros
 
