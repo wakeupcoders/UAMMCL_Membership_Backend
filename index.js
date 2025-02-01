@@ -5,6 +5,7 @@ var path=require('path');
 const dotenv = require("dotenv");
 dotenv.config();
 const ordinaryRoute = require("./routes/ordinary");
+const nominalRoute = require("./routes/nominal");
 const reportRoute = require("./routes/report");
 const uploaderRoute = require("./routes/fileuploader");
 
@@ -35,6 +36,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 app.use("/api/OM", ordinaryRoute);
+app.use("/api/NM", nominalRoute);
 app.use("/api/reports", reportRoute);
 app.use("/api/uploads", uploaderRoute);
 app.use("/api/auth", authRoutes);
