@@ -84,8 +84,6 @@ router.put("/updateAttachments/:id", async (req, res) => {
   }
 });
 
-
-
 router.delete("/removeAttachment/:id", async (req, res) => {
   try {
     // Ensure the file name or path to be removed is provided in the request body

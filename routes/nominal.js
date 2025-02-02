@@ -31,7 +31,7 @@ router.put("/:id", async (req, res) => {
 });
 
 // UPDATE Attachments
-router.put("/updateAttachments/:id", async (req, res) => {
+router.put("/updateNominalAttachments/:id", async (req, res) => {
   try {
     const attachmentName = req.body.filename;
 
@@ -59,7 +59,7 @@ router.put("/updateAttachments/:id", async (req, res) => {
 });
 
 // REMOVE Attachment
-router.delete("/removeAttachment/:id", async (req, res) => {
+router.delete("/removeNominalAttachment/:id", async (req, res) => {
   try {
     const { attachmentName } = req.body;
 
