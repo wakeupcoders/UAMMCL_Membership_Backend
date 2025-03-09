@@ -1,4 +1,5 @@
 const Nominal = require("../models/Nominal");
+const Ordinary = require("../models/Ordinary");
 const CustomErrorHandler = require("../services/CustomErrorHandler");
 const mongoose = require('mongoose');
 const ExcelJS = require('exceljs'); 
@@ -95,7 +96,7 @@ router.get("/downloadNM/:memberid", async (req, res) => {
   try {
     // const ordinaries = await Ordinary.find().sort({ createdAt: -1 });
     // Check if a specific member ID is provided
-     const memberId = req.params.memberid;
+     const memberId = req.params.nominalmemberid;
 
      let nominals;
      
@@ -161,7 +162,7 @@ router.get("/downloadNM/:memberid", async (req, res) => {
     );
     res.setHeader(
       "Content-Disposition",
-      "attachment; filename=Ordinaries.xlsx"
+      "attachment; filename=Nominals.xlsx"
     );
 
     // Write the Excel file to the response
