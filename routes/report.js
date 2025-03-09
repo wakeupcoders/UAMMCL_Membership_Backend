@@ -96,7 +96,7 @@ router.get("/downloadNM/:memberid", async (req, res) => {
   try {
     // const ordinaries = await Ordinary.find().sort({ createdAt: -1 });
     // Check if a specific member ID is provided
-     const memberId = req.params.nominalmemberid;
+     const memberId = req.params.memberid;
 
      let nominals;
      
