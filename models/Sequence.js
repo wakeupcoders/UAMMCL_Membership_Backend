@@ -7,6 +7,7 @@ const ShareLastValueSchema = new mongoose.Schema({
     holdingIdenNumber: { type: String, required: true, default: '000000' }, // Last share value as a string
     registrationNumber: { type: String, required: true, default: '000000' }, // Last registration number as a string
     certificateNumber: { type: String, required: true, default: '000000' }, // Last certificate number as a string
+    membershipNumber: { type: String, required: true, default: '000000' }, // Last certificate number as a string
 });
 
 // Utility function to increment a string-based number with leading zeros
@@ -40,6 +41,7 @@ ShareLastValueSchema.statics.updateValues = async function (numberOfShares) {
     record.holdingIdenNumber = incrementStringNumber(record.holdingIdenNumber, 5); // Increment registration number with leading zeros
     record.registrationNumber = incrementStringNumber(record.registrationNumber, 5); // Increment registration number with leading zeros
     record.certificateNumber = incrementStringNumber(record.certificateNumber, 5); // Increment certificate number with leading zeros
+    record.membershipNumber = incrementStringNumber(record.membershipNumber, 5); // Increment certificate number with leading zeros
 
     // Save the updated record
     await record.save();

@@ -18,6 +18,7 @@ router.post("/", async (req, res, next) => {
     console.log(GeneratedRecord.certificateNumber);
 
 
+    req.body.membership_id = GeneratedRecord.membershipNumber;
     req.body.certificateDetails.register_number = GeneratedRecord.registrationNumber;
     req.body.certificateDetails.certificate_number = GeneratedRecord.certificateNumber;
     req.body.certificateDetails.share_start_number = GeneratedRecord.shareStartValue;
