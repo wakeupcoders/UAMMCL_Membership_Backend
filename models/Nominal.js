@@ -59,9 +59,21 @@ const AuthorisedSignatoryDetailsSchema = new mongoose.Schema({
   },
 });
 
+// Certificate Details Schema
+const CertificateDetailsSchema = new mongoose.Schema({
+  register_number: { type: String },
+  certificate_number: { type: String },
+  Holding_Iden_number: { type: String },
+  share_start_number: { type: String },
+  share_end_number: { type: String },
+  value_of_share: { type: Number, default: 100 }
+});
+
 // Main Registration Schema
 const NominalSchema = new mongoose.Schema(
   {
+    membership_id: { type: String},
+    shares: { type: Number },
     registrationInformation: {
       nameOfApplicant: { type: String, required: true },
       dateOfIncorporation: { type: Date },
@@ -79,6 +91,9 @@ const NominalSchema = new mongoose.Schema(
     gstInformation: GSTInformationSchema, // Embedded schema for GST information
     contactPersonDetails: ContactPersonDetailsSchema, // Embedded schema for contact person details
     authorisedSignatoryDetails: AuthorisedSignatoryDetailsSchema, // Embedded schema for authorised signatory details
+    certificateDetails: CertificateDetailsSchema, // Embedded certificate details
+    receiptNumber: { type: String },
+    paymentMode: { type: String },
     attachments: [{ type: String }], // Array of strings for file names or file paths
   },
   { timestamps: true } // Adds createdAt and updatedAt fields

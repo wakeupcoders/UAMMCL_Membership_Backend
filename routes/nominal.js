@@ -1,5 +1,7 @@
 const Nominal = require("../models/Nominal");
 const CustomErrorHandler = require("../services/CustomErrorHandler");
+const Sequences = require('../models/NominalSequence'); // Path to your model file
+
 const mongoose = require("mongoose");
 
 const router = require("express").Router();
@@ -7,6 +9,13 @@ const router = require("express").Router();
 // CREATE
 router.post("/", async (req, res, next) => {
   try {
+    const GeneratedRecord = await Sequences.updateValues(req.body.shares);
+    req.body.membership_id = GeneratedRecord.membershipNumber;
+    req.body.certificateDetails.register_number = GeneratedRecord.registrationNumber;
+    req.body.certificateDetails.certificate_number = GeneratedRecord.certificateNumber;
+    req.body.certificateDetails.share_start_number = GeneratedRecord.shareStartValue;
+    req.body.certificateDetails.share_end_number = GeneratedRecord.shareEndValue;
+    req.body.certificateDetails.Holding_Iden_number = GeneratedRecord.holdingIdenNumber;
     const newNominal = new Nominal(req.body);
     const savedNominal = await newNominal.save();
     return res.status(200).json(savedNominal);
