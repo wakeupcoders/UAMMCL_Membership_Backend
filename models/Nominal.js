@@ -15,7 +15,7 @@ const ContactInformationSchema = new mongoose.Schema({
   emailId: { type: String, required: false },
   panNo: { type: String, required: false },
   registeredWithOtherExchange: { type: Boolean, default: false },
-  nomineeName: { type: String, required: false },
+  name_of_entity: { type: String, required: false },
   licenseNo: { type: String, required: false },
 });
 
@@ -51,12 +51,7 @@ const ContactPersonDetailsSchema = new mongoose.Schema({
 const AuthorisedSignatoryDetailsSchema = new mongoose.Schema({
   authorisedSignatoryName: { type: String },
   mobileNo: { type: String },
-  designation: { type: String },
-  registeredWithOtherEntities: { type: Boolean, default: false },
-  membershipDetails: {
-    membershipNo: { type: String },
-    stockCommodityDetails: { type: String },
-  },
+  designation: { type: String }
 });
 
 // Certificate Details Schema
@@ -69,11 +64,37 @@ const CertificateDetailsSchema = new mongoose.Schema({
   value_of_share: { type: Number, default: 100 }
 });
 
+
+// Membership Details Schema
+const MembershipDetailsSchema = new mongoose.Schema({
+  membership_id: { type: String},
+  shares: { type: Number },
+  membership_type: { type: String},
+  trading_type: { type: String},
+  legal_entity_type: { type: String}
+  
+});
+
+const RegisteredWithOtherFAEOSchema = new mongoose.Schema({
+  member_number: { type: String},
+  name_of_entity: { type: String }
+});
+
+
+const BankDetailsSchema = new mongoose.Schema({
+  bank_acc_type: { type: String},
+  holder_type: { type: String },
+  bank_name: { type: String},
+  holder_name: { type: String},
+  account_number: { type: String},
+  ifsc_code: { type: String}
+});
+
 // Main Registration Schema
 const NominalSchema = new mongoose.Schema(
   {
-    membership_id: { type: String},
-    shares: { type: Number },
+    
+    
     registrationInformation: {
       nameOfApplicant: { type: String, required: true },
       dateOfIncorporation: { type: Date },
@@ -85,13 +106,17 @@ const NominalSchema = new mongoose.Schema(
         pinCode: { type: String },
         zone: { type: String },
       },
+      aboutEntity:{ type: String }
     },
+    memberInformation: MembershipDetailsSchema,
     idInformation: IDInformationSchema, // Embedded schema for ID information
     contactInformation: ContactInformationSchema, // Embedded schema for contact information
     gstInformation: GSTInformationSchema, // Embedded schema for GST information
     contactPersonDetails: ContactPersonDetailsSchema, // Embedded schema for contact person details
     authorisedSignatoryDetails: AuthorisedSignatoryDetailsSchema, // Embedded schema for authorised signatory details
     certificateDetails: CertificateDetailsSchema, // Embedded certificate details
+    registeredFAEODetails: RegisteredWithOtherFAEOSchema, // Embedded certificate details
+    bankDetails: BankDetailsSchema, // Embedded certificate details
     receiptNumber: { type: String },
     paymentMode: { type: String },
     attachments: [{ type: String }], // Array of strings for file names or file paths

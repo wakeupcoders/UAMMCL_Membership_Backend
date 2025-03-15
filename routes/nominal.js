@@ -9,7 +9,7 @@ const router = require("express").Router();
 // CREATE
 router.post("/", async (req, res, next) => {
   try {
-    const GeneratedRecord = await Sequences.updateValues(req.body.shares);
+    const GeneratedRecord = await Sequences.updateValues(req.body.memberInformation.shares);
     req.body.membership_id = GeneratedRecord.membershipNumber;
     req.body.certificateDetails.register_number = GeneratedRecord.registrationNumber;
     req.body.certificateDetails.certificate_number = GeneratedRecord.certificateNumber;
