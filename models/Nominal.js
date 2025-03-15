@@ -11,7 +11,7 @@ const IDInformationSchema = new mongoose.Schema({
 
 // Contact Information Schema
 const ContactInformationSchema = new mongoose.Schema({
-  mobileNo: { type: String, required: true },
+  mobileNo: { type: String, required: false },
   emailId: { type: String, required: false },
   panNo: { type: String, required: false },
   registeredWithOtherExchange: { type: Boolean, default: false },
