@@ -70,7 +70,9 @@ const MembershipDetailsSchema = new mongoose.Schema({
   membership_id: { type: String},
   shares: { type: Number },
   membership_type: { type: String},
+  other_membership_type: { type: String},
   trading_type: { type: String},
+  other_trading_type: { type: String},
   legal_entity_type: { type: String}
   
 });
