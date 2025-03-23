@@ -72,6 +72,7 @@ const NominationSchema = new mongoose.Schema({
   age: { type: Number },
 });
 
+
 // Membership Details Schema
 const MembershipDetailsSchema = new mongoose.Schema({
   membership_id: { type: String},
