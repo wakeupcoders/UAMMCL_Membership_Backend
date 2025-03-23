@@ -142,12 +142,12 @@ router.get("/downloadNM/:memberid", async (req, res) => {
         register_number: ordinary.certificateDetails?.register_number || "N/A",
         certificate_number: ordinary.certificateDetails?.certificate_number || "N/A",
         name: ordinary.registrationInformation.nameOfApplicant,
-        membership_id: ordinary.membership_id, // Assuming _id represents the membership ID
+        membership_id: ordinary.memberInformation.membership_id, // Assuming _id represents the membership ID
         state: ordinary.registrationInformation.registeredAddress.state, // Replace with actual state if available
         //address: ordinary.permanentAddress,
-        shares: ordinary.shares,
+        shares: ordinary.memberInformation.shares,
         value_of_each_share: ordinary.certificateDetails?.value_of_share, // Replace with the actual value of each share if available
-        total_value_of_shares: ordinary.shares * (Number(ordinary.certificateDetails?.value_of_share)),
+        total_value_of_shares: ordinary.memberInformation.shares * (Number(ordinary.certificateDetails?.value_of_share)),
         share_start_number: ordinary.certificateDetails?.share_start_number || "N/A",
         share_end_number: ordinary.certificateDetails?.share_end_number || "N/A",
         date: date ? date.toISOString().split("T")[0] : "N/A", // Format as YYYY-MM-DD
