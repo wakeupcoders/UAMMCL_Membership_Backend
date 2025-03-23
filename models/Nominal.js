@@ -64,6 +64,13 @@ const CertificateDetailsSchema = new mongoose.Schema({
   value_of_share: { type: Number, default: 100 }
 });
 
+const NominationSchema = new mongoose.Schema({
+  name: { type: String, required: true },
+  relation: { type: String, required: true }, // Specific relation (e.g., Father, Spouse, etc.)
+  occupation: { type: String, required: false },
+  address: { type: String, required: true },
+  age: { type: Number, required: true },
+});
 
 // Membership Details Schema
 const MembershipDetailsSchema = new mongoose.Schema({
@@ -73,7 +80,8 @@ const MembershipDetailsSchema = new mongoose.Schema({
   other_membership_type: { type: String},
   trading_type: { type: String},
   other_trading_type: { type: String},
-  legal_entity_type: { type: String}
+  legal_entity_type: { type: String},
+  other_legal_entity_type: { type: String}
   
 });
 
@@ -100,6 +108,7 @@ const NominalSchema = new mongoose.Schema(
     registrationInformation: {
       nameOfApplicant: { type: String, required: true },
       dateOfIncorporation: { type: Date },
+      dateOfBirth: { type: Date },
       registeredAddress: {
         state: { type: String },
         city: { type: String },
@@ -116,6 +125,7 @@ const NominalSchema = new mongoose.Schema(
     gstInformation: GSTInformationSchema, // Embedded schema for GST information
     contactPersonDetails: ContactPersonDetailsSchema, // Embedded schema for contact person details
     authorisedSignatoryDetails: AuthorisedSignatoryDetailsSchema, // Embedded schema for authorised signatory details
+    nomination: NominationSchema, // Embedded nomination details
     certificateDetails: CertificateDetailsSchema, // Embedded certificate details
     registeredFAEODetails: RegisteredWithOtherFAEOSchema, // Embedded certificate details
     bankDetails: BankDetailsSchema, // Embedded certificate details
