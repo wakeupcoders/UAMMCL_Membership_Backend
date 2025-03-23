@@ -65,11 +65,11 @@ const CertificateDetailsSchema = new mongoose.Schema({
 });
 
 const NominationSchema = new mongoose.Schema({
-  name: { type: String, required: true },
-  relation: { type: String, required: true }, // Specific relation (e.g., Father, Spouse, etc.)
-  occupation: { type: String, required: false },
-  address: { type: String, required: true },
-  age: { type: Number, required: true },
+  name: { type: String },
+  relation: { type: String }, // Specific relation (e.g., Father, Spouse, etc.)
+  occupation: { type: String },
+  address: { type: String },
+  age: { type: Number },
 });
 
 // Membership Details Schema
