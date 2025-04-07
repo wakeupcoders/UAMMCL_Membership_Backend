@@ -3,11 +3,12 @@ const Sequences = require('../models/Sequence'); // Path to your model file
 const CustomErrorHandler = require("../services/CustomErrorHandler");
 const mongoose = require('mongoose');
 const ExcelJS = require('exceljs');
+const VerifyToken = require('../middlewares/verifyToken');
 
 const router = require("express").Router();
 
 //CREATE
-router.post("/", async (req, res, next) => {
+router.post("/", VerifyToken, async (req, res, next) => {
 
   try {
 
@@ -35,7 +36,7 @@ router.post("/", async (req, res, next) => {
 
 
 // //UPDATE
-router.put("/:id", async (req, res) => {
+router.put("/:id",VerifyToken, async (req, res) => {
   try {
     const updatedOrdinary = await Ordinary.findByIdAndUpdate(
       req.params.id, {
@@ -49,7 +50,7 @@ router.put("/:id", async (req, res) => {
 });
 
 
-router.put("/updateAttachments/:id", async (req, res) => {
+router.put("/updateAttachments/:id", VerifyToken, async (req, res) => {
   try {
     // The file path of the uploaded attachment
     const attachmentName = req.body.filename;
@@ -85,7 +86,7 @@ router.put("/updateAttachments/:id", async (req, res) => {
   }
 });
 
-router.delete("/removeAttachment/:id", async (req, res) => {
+router.delete("/removeAttachment/:id", VerifyToken, async (req, res) => {
   try {
     // Ensure the file name or path to be removed is provided in the request body
     const { attachmentName } = req.body;
@@ -126,7 +127,7 @@ router.delete("/removeAttachment/:id", async (req, res) => {
 
 
 //DELETE All
-router.delete("/clean", async (req, res) => {
+router.delete("/clean", VerifyToken,async (req, res) => {
   try {
     await Ordinary.deleteMany();
     return res.status(200).json({ "Message": "All Ordinary has been deleted !!" });
@@ -136,7 +137,7 @@ router.delete("/clean", async (req, res) => {
 });
 
 //GET Ordinary
-router.get("/", async (req, res) => {
+router.get("/", VerifyToken, async (req, res) => {
 
   try {
     ordinaries = await Ordinary.find().sort({ createdAt: -1 });
@@ -147,7 +148,7 @@ router.get("/", async (req, res) => {
 });
 
 //GET Find Ordinary
-router.get("/:id", async (req, res) => {
+router.get("/:id", VerifyToken,  async (req, res) => {
   try {
     const ordinary = await Ordinary.findById(req.params.id);
     res.status(200).json(ordinary);
@@ -157,7 +158,7 @@ router.get("/:id", async (req, res) => {
 });
 
 //DELETE
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", VerifyToken, async (req, res) => {
   try {
     await Ordinary.findByIdAndDelete(req.params.id);
     return res.status(200).json({ "Message": "Ordinary has been deleted !!" });
