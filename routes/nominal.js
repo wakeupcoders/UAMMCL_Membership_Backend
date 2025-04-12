@@ -1,13 +1,14 @@
 const Nominal = require("../models/Nominal");
 const CustomErrorHandler = require("../services/CustomErrorHandler");
 const Sequences = require('../models/NominalSequence'); // Path to your model file
+const VerifyToken = require('../middlewares/verifyToken');
 
 const mongoose = require("mongoose");
 
 const router = require("express").Router();
 
 // CREATE
-router.post("/", async (req, res, next) => {
+router.post("/", VerifyToken,async (req, res, next) => {
   try {
     const GeneratedRecord = await Sequences.updateValues(req.body.memberInformation.shares);
     req.body.memberInformation.membership_id = GeneratedRecord.membershipNumber;
@@ -26,7 +27,7 @@ router.post("/", async (req, res, next) => {
 });
 
 // UPDATE
-router.put("/:id", async (req, res) => {
+router.put("/:id", VerifyToken, async (req, res) => {
   try {
     const updatedNominal = await Nominal.findByIdAndUpdate(
       req.params.id,
@@ -40,7 +41,7 @@ router.put("/:id", async (req, res) => {
 });
 
 // UPDATE Attachments
-router.put("/updateNominalAttachments/:id", async (req, res) => {
+router.put("/updateNominalAttachments/:id", VerifyToken, async (req, res) => {
   try {
     const attachmentName = req.body.filename;
 
@@ -68,7 +69,7 @@ router.put("/updateNominalAttachments/:id", async (req, res) => {
 });
 
 // REMOVE Attachment
-router.delete("/removeNominalAttachment/:id", async (req, res) => {
+router.delete("/removeNominalAttachment/:id", VerifyToken, async (req, res) => {
   try {
     const { attachmentName } = req.body;
 
@@ -106,7 +107,7 @@ router.delete("/removeNominalAttachment/:id", async (req, res) => {
 });
 
 // DELETE All
-router.delete("/clean", async (req, res) => {
+router.delete("/clean", VerifyToken, async (req, res) => {
   try {
     await Nominal.deleteMany();
     return res.status(200).json({ message: "All Nominal records have been deleted!" });
@@ -116,7 +117,7 @@ router.delete("/clean", async (req, res) => {
 });
 
 // GET All Nominal
-router.get("/", async (req, res) => {
+router.get("/", VerifyToken, async (req, res) => {
   try {
     const nominals = await Nominal.find().sort({ createdAt: -1 });
     return res.status(200).json(nominals);
@@ -126,7 +127,7 @@ router.get("/", async (req, res) => {
 });
 
 // GET Single Nominal by ID
-router.get("/:id", async (req, res) => {
+router.get("/:id", VerifyToken, async (req, res) => {
   try {
     const nominal = await Nominal.findById(req.params.id);
     if (!nominal) {
@@ -139,7 +140,7 @@ router.get("/:id", async (req, res) => {
 });
 
 // DELETE Single Nominal by ID
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", VerifyToken, async (req, res) => {
   try {
     const nominal = await Nominal.findByIdAndDelete(req.params.id);
     if (!nominal) {
