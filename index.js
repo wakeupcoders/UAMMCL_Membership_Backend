@@ -10,6 +10,7 @@ const reportRoute = require("./routes/report");
 const uploaderRoute = require("./routes/fileuploader");
 
 const authRoutes = require("./routes/auth");
+const {exec}  = require("child_process");
 
 
 const Sentry = require("@sentry/node");
@@ -46,6 +47,25 @@ app.use("/api/auth", authRoutes);
 app.use(errorHandler);
 
 app.use(express.static(path.join(__dirname,'dist')));
+app.post("/github-webhook", (req, res) => {
+  const payload = req.body;
+
+  if (payload.ref === "refs/heads/main") {
+      console.log("Received push event. Deploying...");
+
+      exec("/bin/bash deploy.sh", (error, stdout, stderr) => {
+          if (error) {
+              console.error(`Deployment failed: ${error}`);
+              return res.status(500).send("Deployment failed");
+          }
+          console.log(`STDOUT: ${stdout}`);
+          console.error(`STDERR: ${stderr}`);
+          res.status(200).send("Deployment successful");
+      });
+  } else {
+      res.status(400).send("Not a push to the main branch");
+  }
+});
 app.use("/*", function(req, res){
     res.sendFile(path.join(__dirname+'/dist/index.html'))
 })
