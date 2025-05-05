@@ -7,20 +7,8 @@ const mongoose = require("mongoose");
 
 const router = require("express").Router();
 
-
-router.post("/assinterest",async (req, res, next) => {
-  try {
-    const newNominal = new Nominal(req.body);
-    const savedNominal = await newNominal.save();
-    return res.status(200).json(savedNominal);
-  } catch (err) {
-    console.error(err);
-    res.status(500).json(err);
-  }
-});
-
 // CREATE
-router.post("/",async (req, res, next) => {
+router.post("/", VerifyToken,async (req, res, next) => {
   try {
     const GeneratedRecord = await Sequences.updateValues(req.body.memberInformation.shares);
     req.body.memberInformation.membership_id = GeneratedRecord.membershipNumber;
@@ -37,9 +25,6 @@ router.post("/",async (req, res, next) => {
     res.status(500).json(err);
   }
 });
-
-
-
 
 // UPDATE
 router.put("/:id", VerifyToken, async (req, res) => {
