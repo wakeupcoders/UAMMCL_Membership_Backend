@@ -49,9 +49,9 @@ app.use("/api/auth", authRoutes);
 app.use(express.static(path.join(__dirname,'dist')));
 
 // 3. Frontend fallback only for GET requests (optional, but preferred)
-app.get("/*", function(req, res){
-    res.sendFile(path.join(__dirname+'/dist/index.html'))
-})
+// app.get("/*", function(req, res){
+//     res.sendFile(path.join(__dirname+'/dist/index.html'))
+// })
 
 // 4. Error handler for API
 // app.use(express.static('dist'));

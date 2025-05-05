@@ -1,15 +1,9 @@
-const Nominal = require("../models/Nominal");
-const CustomErrorHandler = require("../services/CustomErrorHandler");
-const Sequences = require('../models/NominalSequence'); // Path to your model file
-
-const mongoose = require("mongoose");
-
+// public_associates.js
 const router = require("express").Router();
 
-// CREATE
-router.post("/",async (req, res, next) => {
+router.post("/", async (req, res, next) => {
   try {
-    console.log(req.body)
+    console.log(req.body);
     return res.status(200).json("well done");
   } catch (err) {
     console.error(err);
