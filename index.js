@@ -37,6 +37,7 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+// 1. All API routes
 app.use("/api/PA", publicAssociatesRoute);
 app.use("/api/OM", ordinaryRoute);
 app.use("/api/NM", nominalRoute);
@@ -44,11 +45,18 @@ app.use("/api/reports", reportRoute);
 app.use("/api/uploads", uploaderRoute);
 app.use("/api/auth", authRoutes);
 
+// 2. Serve frontend static files
+app.use(express.static(path.join(__dirname,'dist')));
 
+// 3. Frontend fallback only for GET requests (optional, but preferred)
+app.get("/*", function(req, res){
+    res.sendFile(path.join(__dirname+'/dist/index.html'))
+})
+
+// 4. Error handler for API
 // app.use(express.static('dist'));
 app.use(errorHandler);
 
-app.use(express.static(path.join(__dirname,'dist')));
 app.post("/github-webhook", (req, res) => {
   const payload = req.body;
 
@@ -68,10 +76,9 @@ app.post("/github-webhook", (req, res) => {
       res.status(400).send("Not a push to the main branch");
   }
 });
-app.use("/*", function(req, res){
-    res.sendFile(path.join(__dirname+'/dist/index.html'))
-})
 
+
+// 5. Catch-all for unmatched API routes (should come last)
 // Catch-All Route for Unmatched Endpoints
 app.use((req, res, next) => {
   res.status(200).json({
