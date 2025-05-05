@@ -8,7 +8,7 @@ const mongoose = require("mongoose");
 const router = require("express").Router();
 
 
-router.post("/associates_interest",async (req, res, next) => {
+router.post("/assinterest",async (req, res, next) => {
   try {
     const newNominal = new Nominal(req.body);
     const savedNominal = await newNominal.save();
