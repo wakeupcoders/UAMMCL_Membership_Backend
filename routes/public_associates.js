@@ -1,10 +1,13 @@
 // public_associates.js
 const router = require("express").Router();
+const Nominal = require("../models/Nominal");
 
-router.post("/test", async (req, res, next) => {
+
+router.post("/interest", async (req, res, next) => {
   try {
-    console.log(req.body);
-    return res.status(200).json("well done");
+    const newNominal = new Nominal(req.body);
+    const savedNominal = await newNominal.save();
+    return res.status(200).json(savedNominal);
   } catch (err) {
     console.error(err);
     res.status(500).json(err);
