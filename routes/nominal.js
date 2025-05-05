@@ -20,7 +20,7 @@ router.post("/assinterest",async (req, res, next) => {
 });
 
 // CREATE
-router.post("/", VerifyToken,async (req, res, next) => {
+router.post("/",async (req, res, next) => {
   try {
     const GeneratedRecord = await Sequences.updateValues(req.body.memberInformation.shares);
     req.body.memberInformation.membership_id = GeneratedRecord.membershipNumber;
