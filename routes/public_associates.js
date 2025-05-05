@@ -7,7 +7,7 @@ const mongoose = require("mongoose");
 const router = require("express").Router();
 
 // CREATE
-router.post("/",async (req, res, next) => {
+router.get("/",async (req, res, next) => {
   try {
     return res.status(200).json("well done");
   } catch (err) {
