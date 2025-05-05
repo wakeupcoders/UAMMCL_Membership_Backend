@@ -7,6 +7,18 @@ const mongoose = require("mongoose");
 
 const router = require("express").Router();
 
+
+router.post("/associates_interest",async (req, res, next) => {
+  try {
+    const newNominal = new Nominal(req.body);
+    const savedNominal = await newNominal.save();
+    return res.status(200).json(savedNominal);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json(err);
+  }
+});
+
 // CREATE
 router.post("/", VerifyToken,async (req, res, next) => {
   try {
@@ -27,16 +39,7 @@ router.post("/", VerifyToken,async (req, res, next) => {
 });
 
 
-router.post("/public_associates",async (req, res, next) => {
-  try {
-    const newNominal = new Nominal(req.body);
-    const savedNominal = await newNominal.save();
-    return res.status(200).json(savedNominal);
-  } catch (err) {
-    console.error(err);
-    res.status(500).json(err);
-  }
-});
+
 
 // UPDATE
 router.put("/:id", VerifyToken, async (req, res) => {
