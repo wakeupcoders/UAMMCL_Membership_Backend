@@ -37,9 +37,9 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+app.use("/api/PA", publicAssociatesRoute);
 app.use("/api/OM", ordinaryRoute);
 app.use("/api/NM", nominalRoute);
-app.use("/api/PA", publicAssociatesRoute);
 app.use("/api/reports", reportRoute);
 app.use("/api/uploads", uploaderRoute);
 app.use("/api/auth", authRoutes);
