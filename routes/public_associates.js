@@ -1,7 +1,7 @@
 // public_associates.js
 const router = require("express").Router();
 
-router.post("/", async (req, res, next) => {
+router.post("/test", async (req, res, next) => {
   try {
     console.log(req.body);
     return res.status(200).json("well done");
