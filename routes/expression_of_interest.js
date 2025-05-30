@@ -17,7 +17,7 @@ router.post('/', async (req, res) => {
 });
 
 // Read All
-router.get('/',VerifyToken,  async (req, res) => {
+router.get('/',  async (req, res) => {
   try {
     const forms = await EoiForm.find();
     res.json(forms);
@@ -27,7 +27,7 @@ router.get('/',VerifyToken,  async (req, res) => {
 });
 
 // Read One
-router.get('/:id',VerifyToken,  async (req, res) => {
+router.get('/:id',  async (req, res) => {
   try {
     const form = await EoiForm.findById(req.params.id);
     if (!form) return res.status(404).json({ message: 'Form not found' });
@@ -38,7 +38,7 @@ router.get('/:id',VerifyToken,  async (req, res) => {
 });
 
 // Update
-router.put('/:id',VerifyToken, async (req, res) => {
+router.put('/:id', async (req, res) => {
   try {
     const updatedForm = await EoiForm.findByIdAndUpdate(req.params.id, req.body, { new: true });
     if (!updatedForm) return res.status(404).json({ message: 'Form not found' });
@@ -49,7 +49,7 @@ router.put('/:id',VerifyToken, async (req, res) => {
 });
 
 // Delete
-router.delete('/:id',VerifyToken,  async (req, res) => {
+router.delete('/:id',  async (req, res) => {
   try {
     const deletedForm = await EoiForm.findByIdAndDelete(req.params.id);
     if (!deletedForm) return res.status(404).json({ message: 'Form not found' });
