@@ -7,6 +7,7 @@ dotenv.config();
 const ordinaryRoute = require("./routes/ordinary");
 const nominalRoute = require("./routes/nominal");
 const publicAssociatesRoute = require("./routes/public_associates");
+const EOIRoute = require("./routes/expression_of_interest");
 const reportRoute = require("./routes/report");
 const uploaderRoute = require("./routes/fileuploader");
 
@@ -39,6 +40,7 @@ app.use(express.urlencoded({ extended: false }));
 
 // 1. All API routes
 app.use("/api/PA", publicAssociatesRoute);
+app.use("/api/EOI", EOIRoute);
 app.use("/api/OM", ordinaryRoute);
 app.use("/api/NM", nominalRoute);
 app.use("/api/reports", reportRoute);
