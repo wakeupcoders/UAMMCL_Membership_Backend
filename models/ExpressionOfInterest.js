@@ -7,11 +7,11 @@ const eoiFormSchema = new mongoose.Schema({
   fname: { type: String, required: true },
   address: { type: String, required: true },
   state: { type: String, required: true },
-  tehsil: { type: String, required: true },
+  tehsil: { type: String },
   district: { type: String, required: true },
   pincode: { type: String, required: true },  // No regex
   mobile: { type: String, required: true },   // No regex
-  email: { type: String, required: true },    // No regex
+  email: { type: String },    // No regex
   comments: { type: String }
 }, { timestamps: true });
 
